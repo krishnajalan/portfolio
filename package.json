@@ -114,5 +114,10 @@
       "^.+\\.jsx$": "babel-jest",
       "^.+\\.js$": "babel-jest"
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "nohup git commit -a -m'Automatic Preliminary Push Commit'&  npm run test-win && find . -type f -name 'nohup.out' -delete"
+    }
   }
 }
