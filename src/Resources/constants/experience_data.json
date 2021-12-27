@@ -1,0 +1,27 @@
+[
+    {
+        "company" :"Data Peace.Pvt.Ltd (Upai.io)",
+        "title" : "Software Engineer",
+        "duration" : "Jume 2021 - August 2021",
+        "description" : 
+        [
+            "Worked as a Software Developer intern with the backend team, ",
+            "Primarily using Python, but also Node JS.",
+            "Using FastAPI, Fastify and Flask as framework and PostgreSQL, SQLite as database, also ",
+            "Developed plugins on serverless architecture (AWS lambda)."
+        ]
+        
+    },
+    {
+        "company" : "Eyudh",
+        "title" : "Startup Project",
+        "duration" : "May 2021 - August 2021",
+        "description" : 
+        [
+            "Manage Deployment on AWS ec2 using Nginx for reverse Proxy",
+            "Docker for deployment, CertBot for SSL certificate managment.",
+            "Implemented Transaction for database API requests.",
+            "Using Node.js and Mongodb as base Tech stack"
+        ]
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "name" : "About",
+        "description" : "Opens about me"
+    },
+    {
+        "name" : "Experience",
+        "description" : "Opens my previous work experience"
+    },
+    {
+        "name" : "Work",
+        "description" : "Opens my projects on GitHub"
+    },
+    {
+        "name" : "Contact",
+        "description" : "Runs contact me program in terminal"
+    }
+]
