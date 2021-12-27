@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/krishna_jalan/static/css/main.631ad99e.chunk.css",
-    "main.js": "/krishna_jalan/static/js/main.f70b720d.chunk.js",
-    "main.js.map": "/krishna_jalan/static/js/main.f70b720d.chunk.js.map",
+    "main.css": "/krishna_jalan/static/css/main.1ef879d3.chunk.css",
+    "main.js": "/krishna_jalan/static/js/main.e415da0e.chunk.js",
+    "main.js.map": "/krishna_jalan/static/js/main.e415da0e.chunk.js.map",
     "runtime-main.js": "/krishna_jalan/static/js/runtime-main.c4dd7a18.js",
     "runtime-main.js.map": "/krishna_jalan/static/js/runtime-main.c4dd7a18.js.map",
     "static/js/2.5e71b848.chunk.js": "/krishna_jalan/static/js/2.5e71b848.chunk.js",
     "static/js/2.5e71b848.chunk.js.map": "/krishna_jalan/static/js/2.5e71b848.chunk.js.map",
     "index.html": "/krishna_jalan/index.html",
-    "static/css/main.631ad99e.chunk.css.map": "/krishna_jalan/static/css/main.631ad99e.chunk.css.map",
+    "static/css/main.1ef879d3.chunk.css.map": "/krishna_jalan/static/css/main.1ef879d3.chunk.css.map",
     "static/js/2.5e71b848.chunk.js.LICENSE.txt": "/krishna_jalan/static/js/2.5e71b848.chunk.js.LICENSE.txt",
     "static/media/Terminal.css": "/krishna_jalan/static/media/2_lines.8411e771.woff",
-    "static/media/About.css": "/krishna_jalan/static/media/avatar.7cf846e2.jpg",
+    "static/media/About.css": "/krishna_jalan/static/media/avatar.9d2518b1.jpg",
     "static/media/external-link.266677e5.svg": "/krishna_jalan/static/media/external-link.266677e5.svg",
     "static/media/folder.16edb5e8.svg": "/krishna_jalan/static/media/folder.16edb5e8.svg",
     "static/media/github.16a9304e.svg": "/krishna_jalan/static/media/github.16a9304e.svg",
@@ -22,7 +22,7 @@
   "entrypoints": [
     "static/js/runtime-main.c4dd7a18.js",
     "static/js/2.5e71b848.chunk.js",
-    "static/css/main.631ad99e.chunk.css",
-    "static/js/main.f70b720d.chunk.js"
+    "static/css/main.1ef879d3.chunk.css",
+    "static/js/main.e415da0e.chunk.js"
   ]
 }
