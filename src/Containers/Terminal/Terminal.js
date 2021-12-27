@@ -145,8 +145,6 @@ const PackageRefs = (props) => {
 
             if (blink.current)
                 inputRef.current.value = inputRef.current.value.replaceAll('▮', '');
-            else
-                inputRef.current.value = inputRef.current.value //+ '▮'
 
             blink.current = !blink.current
 
