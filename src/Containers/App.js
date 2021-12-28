@@ -50,10 +50,10 @@ class App extends PureComponent {
       this.selectTab(id);
       return false;
     }
-    
-    let pids = [...Array(tabName.length+1).keys()]
-    for(let i=0; i<tempTabs.length; i++) {
-        pids.splice(pids.indexOf(tempTabs[i].pid), 1);
+
+    let pids = [...Array(tabName.length + 1).keys()]
+    for (let i = 0; i < tempTabs.length; i++) {
+      pids.splice(pids.indexOf(tempTabs[i].pid), 1);
     }
     let pid = pids[0];
 
@@ -109,9 +109,9 @@ class App extends PureComponent {
       index = tempTabs.findIndex((tab) => tab.id === id);
 
     if (index === 0) {
-        window.opener = null;
-        window.open("", "_self");
-        window.close();
+      window.opener = null;
+      window.open("", "_self");
+      window.close();
     }
 
     else if (index <= 0)
@@ -208,35 +208,36 @@ class App extends PureComponent {
       <li onClick={() => this.addTab("Contact")}>Contact Me</li>
     </ol>
   }
-  
+
   render() {
-    return  (isMobile) ? (
-    <div id="app">
-      {this.TerminalTabs()}
-      <Terminal
-        tabs={this.state.tabs}
-        addTab={this.addTab}
-        removeTab={this.removeTab}
-        display={this.state.tabs[0].displayed ? "" : "hideTerminal"}
-        inView={this.state.tabs[0].displayed}>
-      </Terminal>
-      {this.DisplayCurrentWindow()}
-      <a href="https://www.linkedin.com/in/iliyan-dimitrov-926550200/" target="_blank" id="footer" rel="noreferrer">Designed by Iliyan Dimitrov</a>
-    </div>
+    return (isMobile) ? (
+      <div id="app">
+        {this.TerminalTabs()}
+        <Terminal
+          tabs={this.state.tabs}
+          addTab={this.addTab}
+          removeTab={this.removeTab}
+          display={this.state.tabs[0].displayed ? "" : "hideTerminal"}
+          inView={this.state.tabs[0].displayed}>
+        </Terminal>
+        {this.DisplayCurrentWindow()}
+      </div>
     ) :
-    (
+      (
         <div id="app">
           {this.navigationButtons()}
           {this.LeftBarLinks()}
           {this.RightBarEmail()}
           {this.TerminalTabs()}
           <Terminal
+            tabs={this.state.tabs}
             addTab={this.addTab}
             removeTab={this.removeTab}
             display={this.state.tabs[0].displayed ? "" : "hideTerminal"}
             inView={this.state.tabs[0].displayed}>
           </Terminal>
           {this.DisplayCurrentWindow()}
+
         </div>
       );
   }
