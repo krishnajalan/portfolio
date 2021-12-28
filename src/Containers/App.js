@@ -7,6 +7,7 @@ import About from '../Components/About/About';
 import ContactMe from '../Components/ContactMe/ContactMe';
 import Experience from '../Components/Experience/Experience';
 import Work from '../Components/Work/Work';
+import SnakeGame from '../Components/snakeGame/snakeGame';
 
 import github_api from '../Resources/util/github_api'
 import links_icons from '../Resources/constants/links_icons'
@@ -19,7 +20,9 @@ class App extends PureComponent {
       {
         name: "Terminal"
         , displayed: true,
-        id: 0
+        id: 0,
+        pid: 0,
+        TIME: new Date()
       }
     ],
     repos: [
@@ -47,31 +50,42 @@ class App extends PureComponent {
       this.selectTab(id);
       return false;
     }
+    
+    let pids = [...Array(tabName.length+1).keys()]
+    for(let i=0; i<tempTabs.length; i++) {
+        pids.splice(pids.indexOf(tempTabs[i].pid), 1);
+    }
+    let pid = pids[0];
 
     tempTabs.map((tab) => tab.displayed = false);
     switch (tabName) {
       case "Terminal": {
-        tempTabs.push({ name: "Terminal", displayed: true });
+        tempTabs.push({ name: "Terminal", displayed: true, TIME: new Date(), pid });
         break;
       }
 
       case "About": {
-        tempTabs.push({ name: "About", displayed: true });
+        tempTabs.push({ name: "About", displayed: true, TIME: new Date(), pid });
         break;
       }
 
       case "Experience": {
-        tempTabs.push({ name: "Experience", displayed: true });
+        tempTabs.push({ name: "Experience", displayed: true, TIME: new Date(), pid });
         break;
       }
 
       case "Work": {
-        tempTabs.push({ name: "Work", displayed: true });
+        tempTabs.push({ name: "Work", displayed: true, TIME: new Date(), pid });
         break;
       }
 
       case "Contact": {
-        tempTabs.push({ name: "Contact", displayed: true });
+        tempTabs.push({ name: "Contact", displayed: true, TIME: new Date(), pid });
+        break;
+      }
+
+      case "snakeGame.exe": {
+        tempTabs.push({ name: "snakeGame.exe", displayed: true, TIME: new Date(), pid });
         break;
       }
 
@@ -94,7 +108,13 @@ class App extends PureComponent {
     else
       index = tempTabs.findIndex((tab) => tab.id === id);
 
-    if (index <= 0)
+    if (index === 0) {
+        window.opener = null;
+        window.open("", "_self");
+        window.close();
+    }
+
+    else if (index <= 0)
       return false;
 
     else
@@ -139,6 +159,8 @@ class App extends PureComponent {
       result = <Work repos={this.state.repos}></Work>
     else if (this.state.tabs[index].name === 'Contact')
       result = <ContactMe></ContactMe>
+    else if (this.state.tabs[index].name === 'snakeGame.exe')
+      result = <SnakeGame></SnakeGame>
 
     return result;
   }
@@ -186,13 +208,13 @@ class App extends PureComponent {
       <li onClick={() => this.addTab("Contact")}>Contact Me</li>
     </ol>
   }
-
-
+  
   render() {
     return  (isMobile) ? (
     <div id="app">
       {this.TerminalTabs()}
       <Terminal
+        tabs={this.state.tabs}
         addTab={this.addTab}
         removeTab={this.removeTab}
         display={this.state.tabs[0].displayed ? "" : "hideTerminal"}

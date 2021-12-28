@@ -17,7 +17,7 @@ const create_initial_text = () => {
     if (isMobile) {
         result = [
             <h3>Krishna Jalan</h3>,
-            <h4>This is a Fully Interactive Portfolio Page with a Linux Insprired Terminal (better on PC) <br /></h4>,
+            <h4>This is a Fully Interactive Portfolio Page with a Linux Insprired Terminal (better on PC)<br /></h4>,
             <p>To Begin, Type: help</p>,
         ];
     }

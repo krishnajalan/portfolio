@@ -27,7 +27,7 @@
         "type" : "file",
         "name" : "snakeGame.exe",
         "path" : "krishna@Portfolio:~$",
-        "contents" : "../../Components/SnakeGame/SnakeGame.js",
+        "contents" : "../../Components/snakeGame/snakeGame.js",
         "privileges" : ["read","write","execute"],
         "owner" : []
     },

@@ -114,13 +114,10 @@
         color:var(--yellow);
     }
     .indented{
-        overflow-wrap: break-word;
-        
+        overflow-wrap: anywhere;
         width:calc(100% - 80px);
-        padding-left:80px;
+        padding-left:60px;
     }
-
-
 
 @keyframes typewriter {
     from {width:0;height:0;}

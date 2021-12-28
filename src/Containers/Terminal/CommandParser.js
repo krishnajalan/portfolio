@@ -51,6 +51,11 @@ let allCommands = [
         command:'reset',
         arguments:1,
         runFunction:(allPackages)=>allPackages.os.reset()
+    },
+    {
+        command:'ps',
+        arguments:1,
+        runFunction:(allPackages)=>handlePS(allPackages)
     }
 ]
 
@@ -116,7 +121,7 @@ const handleOPEN = (allPackages) =>{
         result.push(<p>{commandSelector[1]} not found<br/>⠀</p>)
     else if(owners.length === 0 || owners.includes(os.user)){
         result.push(<p>Opening {commandSelector[1]}<br/>⠀</p>)
-        if (["About", "Experience", "Work"].includes(commandSelector[1]))
+        if (["About", "Experience", "Work", "snakeGame.exe"].includes(commandSelector[1]))
             allPackages.addTab(commandSelector[1]);
     }
     else
@@ -136,6 +141,37 @@ const handleSU = (allPackages) =>{
     setPath(os.terminalString)
 
     return result;
+}
+
+const handlePS = (allPackages) => {
+    const { tabs } = allPackages;
+    let result = [<p className="indented">
+                    <b className="I" style={{marginRight: '30px'}}>PID</b>
+                    <b className="I" style={{marginRight: '60px'}}>TTY</b>
+                    <b className="I" style={{marginRight: '80px'}}>TIME</b>
+                    <b className="I" style={{marginRight: '10px'}}>CMD</b>
+                </p>];
+    
+    tabs.map((process)=>{
+        result.push(
+            <p className="indented" style={{display:'flex'}}>
+                <b className="I" style={{marginRight: '30px'}}>{process.pid}</b>
+                <b className="I" style={{marginRight: '20px'}}>pts/0</b>
+                <b className="I" style={{marginRight: '30px'}}>{secondsToHMS( (new Date().getTime() - process.TIME.getTime())/1000 )}</b>
+                <b className="I" style={{marginRight: '30px'}}>{process.name}</b>
+            </p>
+        )
+    })
+    result.push(<br/>)
+    return result;
+}
+
+function secondsToHMS(secs) {
+    secs = secs | 0;
+    function z(n){return (n<10?'0':'') + n;}
+    var sign = secs < 0? '-':'';
+    secs = Math.abs(secs);
+    return sign + z(secs/3600 |0) + ':' + z((secs%3600) / 60 |0) + ':' + z(secs%60);
 }
 
 const helpArray = () =>{

@@ -1,0 +1,12 @@
+:root {
+  /*--overlay:#64ffdb44;*/
+  --overlay: rgba(255, 255, 255, 0);
+}
+
+.snakeGame {
+}
+
+.spacer {
+    padding: 100px;
+    margin: 100px;
+}
