@@ -5,3 +5,5 @@ The file will have its original line endings in your working directory
 [master 481f038] Automatic Preliminary Push Commit
  2 files changed, 11615 insertions(+), 12089 deletions(-)
  rewrite yarn.lock (83%)
+On branch master
+nothing to commit, working tree clean

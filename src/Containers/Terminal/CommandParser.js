@@ -152,7 +152,7 @@ const handlePS = (allPackages) => {
                     <b className="I" style={{marginRight: '10px'}}>CMD</b>
                 </p>];
     
-    tabs.map((process)=>{
+    tabs.map((process)=>(
         result.push(
             <p className="indented" style={{display:'flex'}}>
                 <b className="I" style={{marginRight: '30px'}}>{process.pid}</b>
@@ -161,7 +161,7 @@ const handlePS = (allPackages) => {
                 <b className="I" style={{marginRight: '30px'}}>{process.name}</b>
             </p>
         )
-    })
+    ))
     result.push(<br/>)
     return result;
 }
