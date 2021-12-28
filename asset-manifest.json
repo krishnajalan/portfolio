@@ -1,28 +1,21 @@
 {
   "files": {
-    "main.css": "/krishna_jalan/static/css/main.204f6f3b.chunk.css",
-    "main.js": "/krishna_jalan/static/js/main.f49bfc8e.chunk.js",
-    "main.js.map": "/krishna_jalan/static/js/main.f49bfc8e.chunk.js.map",
-    "runtime-main.js": "/krishna_jalan/static/js/runtime-main.c4dd7a18.js",
-    "runtime-main.js.map": "/krishna_jalan/static/js/runtime-main.c4dd7a18.js.map",
-    "static/js/2.f05930d7.chunk.js": "/krishna_jalan/static/js/2.f05930d7.chunk.js",
-    "static/js/2.f05930d7.chunk.js.map": "/krishna_jalan/static/js/2.f05930d7.chunk.js.map",
+    "main.css": "/krishna_jalan/static/css/main.c84c5ea8.css",
+    "main.js": "/krishna_jalan/static/js/main.bc071fb4.js",
+    "static/media/avatar.jpg": "/krishna_jalan/static/media/avatar.9d2518b1ed8b3966e2af.jpg",
+    "static/media/2_lines.woff": "/krishna_jalan/static/media/2_lines.8411e7711288415028ac.woff",
+    "static/media/external-link.svg": "/krishna_jalan/static/media/external-link.266677e5dc50cf111e26eee1c3dbb8ac.svg",
+    "static/media/instagram.svg": "/krishna_jalan/static/media/instagram.f0cfa30d48f79bb3d8c99ebf43dea781.svg",
+    "static/media/resume.svg": "/krishna_jalan/static/media/resume.6359e300c19e3d815717f2238f045656.svg",
     "index.html": "/krishna_jalan/index.html",
-    "static/css/main.204f6f3b.chunk.css.map": "/krishna_jalan/static/css/main.204f6f3b.chunk.css.map",
-    "static/js/2.f05930d7.chunk.js.LICENSE.txt": "/krishna_jalan/static/js/2.f05930d7.chunk.js.LICENSE.txt",
-    "static/media/Terminal.css": "/krishna_jalan/static/media/2_lines.8411e771.woff",
-    "static/media/About.css": "/krishna_jalan/static/media/avatar.9d2518b1.jpg",
-    "static/media/external-link.266677e5.svg": "/krishna_jalan/static/media/external-link.266677e5.svg",
-    "static/media/folder.16edb5e8.svg": "/krishna_jalan/static/media/folder.16edb5e8.svg",
-    "static/media/github.16a9304e.svg": "/krishna_jalan/static/media/github.16a9304e.svg",
-    "static/media/instagram.f0cfa30d.svg": "/krishna_jalan/static/media/instagram.f0cfa30d.svg",
-    "static/media/linkedin.03f1d164.svg": "/krishna_jalan/static/media/linkedin.03f1d164.svg",
-    "static/media/resume.bd3a2df8.svg": "/krishna_jalan/static/media/resume.bd3a2df8.svg"
+    "static/media/folder.svg": "/krishna_jalan/static/media/folder.16edb5e8f9be83a7a96bacafc46b8685.svg",
+    "static/media/github.svg": "/krishna_jalan/static/media/github.16a9304e38fd8167989291ab92544e14.svg",
+    "static/media/linkedin.svg": "/krishna_jalan/static/media/linkedin.03f1d164221e3a81954e6ec24a350288.svg",
+    "main.c84c5ea8.css.map": "/krishna_jalan/static/css/main.c84c5ea8.css.map",
+    "main.bc071fb4.js.map": "/krishna_jalan/static/js/main.bc071fb4.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.c4dd7a18.js",
-    "static/js/2.f05930d7.chunk.js",
-    "static/css/main.204f6f3b.chunk.css",
-    "static/js/main.f49bfc8e.chunk.js"
+    "static/css/main.c84c5ea8.css",
+    "static/js/main.bc071fb4.js"
   ]
 }
