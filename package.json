@@ -6,8 +6,8 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "create_key.sh && react-scripts start",
+    "build": "chmod +x create_key.sh && ./create_key.sh && react-scripts build",
     "test-linux": "chmod +x create_key.sh && ./create_key.sh && jest --coverageDirectory=./target/coverage/client/ --silent",
     "test-win": "create_key.sh && jest --coverageDirectory=./target/coverage/client/ --silent",
     "eject": "react-scripts eject"
