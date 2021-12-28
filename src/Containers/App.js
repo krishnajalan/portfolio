@@ -237,7 +237,6 @@ class App extends PureComponent {
             inView={this.state.tabs[0].displayed}>
           </Terminal>
           {this.DisplayCurrentWindow()}
-          <a href="https://www.linkedin.com/in/iliyan-dimitrov-926550200/" target="_blank" id="footer" rel="noreferrer">Designed by Iliyan Dimitrov</a>
         </div>
       );
   }
