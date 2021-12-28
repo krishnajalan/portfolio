@@ -34,7 +34,7 @@ const send_api_call = async(allPackages) => {
   }
   else{
     use_public_key(allPackages);
-    await sleep(1000)
+    await sleep(10000)
     return send_api_call(allPackages)
   }
 }
