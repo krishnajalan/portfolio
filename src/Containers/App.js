@@ -8,7 +8,6 @@ import ContactMe from '../Components/ContactMe/ContactMe';
 import Experience from '../Components/Experience/Experience';
 import Work from '../Components/Work/Work';
 import SnakeGame from '../Components/snakeGame/snakeGame';
-import TextEditor from '../Components/TextEditor/TextEditor.js';
 
 import github_api from '../Resources/util/github_api'
 import links_icons from '../Resources/constants/links_icons'
