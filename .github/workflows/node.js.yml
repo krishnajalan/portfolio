@@ -7,15 +7,22 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      API_KEY: ${{secrets.API_KEY}}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
+        
+      - name: Node Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
 
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
-          npm install yarn
-          yarn
-          npm run build
+          yarn install
+          yarn run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
