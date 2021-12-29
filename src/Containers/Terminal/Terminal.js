@@ -4,6 +4,7 @@ import OS from './OS'
 import CommandParser from './CommandParser'
 import starter_command_descriptions from '../../Resources/constants/starter_command_descriptions.json'
 import { isMobile } from 'react-device-detect'
+import TextEditor from '../../Components/TextEditor/TextEditor.js';
 
 const clear_screen_text = () => {
     let result = []
@@ -90,7 +91,7 @@ const terminalSubmit = (e, allPackages) => {
 
     if (!SIGINT) {
         let commands = allPackages.command.split('&&')
-        if (allPackages.command.length!==0) allPackages.os.histories.push(allPackages.command)
+        if (allPackages.command.length!==0) allPackages.os.updateHistory(allPackages.command)
         allPackages.os.idx = allPackages.os.histories.length
         commands.forEach((indivCommand) => {
             if (indivCommand === '')
@@ -124,36 +125,31 @@ const PackageStates = () => {
     const [command, setCommand] = useState('');
     const [path, setPath] = useState(os.terminalString);
     const [content, setContent] = useState(create_initial_text());
+    const [file, setFile] = useState();
+    const [editor, setEditor] = useState(false);
     return {
         os: os,
         command, setCommand,
         path, setPath,
-        content, setContent
+        content, setContent,
+        file, setFile,
+        editor, setEditor
     }
 }
 
 const PackageRefs = (props) => {
     const inputRef = useRef(null);
-    const blink = useRef(false)
     const interval = useRef({
         id: 0,
         function: () => {
-            if (!props.inView && inputRef.current && blink.current !== null)
+            if (!props.inView && inputRef.current)
                 return
 
             inputRef.current.focus();
-
-            if (blink.current)
-                inputRef.current.value = inputRef.current.value.replaceAll('▮', '');
-
-            blink.current = !blink.current
-
-
         }
     })
     return {
         inputRef: inputRef,
-        blink: blink,
         interval: interval
     }
 }
@@ -177,7 +173,12 @@ const Terminal = (props) => {
     Handle_allPackages(allPackages);
 
     return (
-        <div className={props.display + " main"}>
+        (allPackages.editor)?
+        (<div>
+                <TextEditor allPackages={allPackages}></TextEditor>
+        </div>):
+        (
+        <div className={props.display + " main"}>    
             <div className={"css-typing "}>
                 {
                     allPackages.content.map((item, key) => {
@@ -191,6 +192,7 @@ const Terminal = (props) => {
                 <p>⠀</p>
             </form>
         </div>
+        )
     );
 }
 export default Terminal;

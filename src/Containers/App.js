@@ -8,6 +8,7 @@ import ContactMe from '../Components/ContactMe/ContactMe';
 import Experience from '../Components/Experience/Experience';
 import Work from '../Components/Work/Work';
 import SnakeGame from '../Components/snakeGame/snakeGame';
+import TextEditor from '../Components/TextEditor/TextEditor.js';
 
 import github_api from '../Resources/util/github_api'
 import links_icons from '../Resources/constants/links_icons'
@@ -160,7 +161,7 @@ class App extends PureComponent {
     else if (this.state.tabs[index].name === 'Contact')
       result = <ContactMe></ContactMe>
     else if (this.state.tabs[index].name === 'snakeGame.exe')
-      result = <SnakeGame></SnakeGame>
+      result = <SnakeGame/>
 
     return result;
   }

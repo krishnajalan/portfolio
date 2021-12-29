@@ -3,59 +3,79 @@ import help_descriptions from '../../Resources/constants/help_descriptions.json'
 
 let allCommands = [
     {
-        command:'clear',
+        command:/^clear$/,
         arguments:1,
         runFunction:(allPackages)=>{return 'clear'}
     },
     {
-        command:'help',
+        command:/^help$/,
         arguments:1,
         runFunction:(allPackages)=>helpArray()
     },
     {
-        command:'ls',
+        command:/^ls$/,
         arguments:1,
         runFunction:(allPackages)=>handleLS(allPackages)
     },
     {
-        command:'cd',
+        command:/^cd$/,
         arguments:2,
         runFunction:(allPackages)=>handleCD(allPackages)
     },
     {
-        command:'mkdir',
+        command:/^mkdir$/,
         arguments:2,
         runFunction:(allPackages)=>allPackages.os.mkdir(allPackages)
     },
     {
-        command:'rm',
+        command:/^rm$/,
         arguments:2,
         runFunction:(allPackages)=>allPackages.os.rm(allPackages)
     },
     {
-        command:'touch',
+        command:/^touch$/,
         arguments:2,
         runFunction:(allPackages)=>allPackages.os.touch(allPackages)
     },
     {
-        command:'open',
+        command:/^open$/,
         arguments:2,
         runFunction:(allPackages)=>handleOPEN(allPackages)
     },
     {
-        command:'su',
+        command:/^su$/,
         arguments:2,
         runFunction:(allPackages)=>handleSU(allPackages)
     },
     {
-        command:'reset',
+        command:/^reset$/,
         arguments:1,
         runFunction:(allPackages)=>allPackages.os.reset()
     },
     {
-        command:'ps',
+        command:/^ps$/,
         arguments:1,
         runFunction:(allPackages)=>handlePS(allPackages)
+    },
+    {
+        command:/^cat$/,
+        arguments:2,
+        runFunction:(allPackages)=>handleCat(allPackages)
+    },
+    {
+        command:/^history$/,
+        arguments:1,
+        runFunction:(allPackages)=>handleHistory(allPackages)
+    },
+    {
+        command:/^!/,
+        arguments:1,
+        runFunction:(allPackages)=>handleBang(allPackages)  
+    },
+    {
+        command: /^edit$/,
+        arguments: 2,
+        runFunction: (allPackages) => handleEdit(allPackages)
     }
 ]
 
@@ -65,7 +85,7 @@ const ParseCommand = (command,allPackages) =>{
     
     let foundCommand = false;
     allCommands.forEach((commandObj)=>{
-        if(commandObj.command === allPackages.commandSelector[0]){
+        if(allPackages.commandSelector[0].match(commandObj.command)){
             foundCommand = true;
             if(allPackages.commandSelector.length === commandObj.arguments){
                 result = commandObj.runFunction(allPackages);
@@ -104,11 +124,85 @@ const handleCD = (allPackages) =>{
     let newPath = os.cd(commandSelector[1],path);
     if(newPath === "")
         result.push(<p>Can't open {commandSelector[1]}</p>)
+    else if (newPath === -1)
+        result.push(<p>cd: {commandSelector[1]}: No such file or directory</p>)
     else
         setPath(newPath)
     
     return result;
 }
+
+const handleCat = (allPackages) =>{
+    const { os,commandSelector ,path }  = allPackages;
+    let result = []
+    let fileName = commandSelector[1].split('/').slice(-1)[0]
+    let filePath = commandSelector[1].split('/').slice(0, -1).join('/')
+    if (fileName === "") result.push(<p>cat: Invalid File Name Supplied</p>)
+
+    let newPath = os.getfiles(filePath, path);
+    if (newPath === -1)
+        result.push(<p>cat: {commandSelector[1]}: No such file or directory</p>)
+    
+    let found = false;
+    for(let i=0; i<newPath.length; i++){
+        if(newPath[i].name === fileName){
+            found = true;
+            if (newPath[i].type === "folder"){
+                continue;
+            }
+            else{
+                result.push(<p>{newPath[i].contents}<br/></p>)
+                break;
+            }
+        }
+    }
+    if (found && result.length === 0){
+        result.push(<p>cat: {commandSelector[1]}: is directory</p>)
+    }
+    return result;
+}
+
+const handleEdit = (allPackages) =>{
+    const { os,commandSelector,path }  = allPackages;
+    let result = []
+    let fileName = commandSelector[1].split('/').slice(-1)[0]
+    let filePath = commandSelector[1].split('/').slice(0, -1).join('/')
+
+    if (fileName === "") result.push(<p>edit: Invalid File Name Supplied</p>)
+
+    let newPath = os.getfiles(filePath, path);
+    if (newPath === -1)
+        result.push(<p>edit: {commandSelector[1]}: No such file or directory</p>)
+    
+    let found = false;
+    let item = null;
+    for(let i=0; i<newPath.length; i++){
+        if(newPath[i].name === fileName){
+            found = true;
+            if (newPath[i].type === "folder"){
+                continue;
+            }
+            else
+                item = newPath[i];
+                result.push(<p>opening {newPath[i].contents} to edit<br/></p>)
+                break;
+        }
+    }
+    if (found && result.length === 0){
+        result.push(<p>edit: {commandSelector[1]}: is directory</p>)
+    }
+    if (result.length === 0){
+        result.push(<p>edit: {commandSelector[1]} not found<br/></p>)
+    }
+
+    if (item!==null){
+        console.log(item)
+        allPackages.setEditor(true);
+        allPackages.setFile(item);
+    }   
+    return result;
+}
+
 
 const handleOPEN = (allPackages) =>{
     const { os, commandSelector, path } = allPackages;
@@ -149,21 +243,47 @@ const handlePS = (allPackages) => {
                     <b className="I" style={{marginRight: '30px'}}>PID</b>
                     <b className="I" style={{marginRight: '60px'}}>TTY</b>
                     <b className="I" style={{marginRight: '80px'}}>TIME</b>
-                    <b className="I" style={{marginRight: '10px'}}>CMD</b>
+                    <b className="I" style={{marginRight: '0px'}}>CMD</b>
                 </p>];
     
     tabs.map((process)=>(
         result.push(
-            <p className="indented" style={{display:'flex'}}>
+            <p className="indented">
                 <b className="I" style={{marginRight: '30px'}}>{process.pid}</b>
                 <b className="I" style={{marginRight: '20px'}}>pts/0</b>
                 <b className="I" style={{marginRight: '30px'}}>{secondsToHMS( (new Date().getTime() - process.TIME.getTime())/1000 )}</b>
-                <b className="I" style={{marginRight: '30px'}}>{process.name}</b>
+                <b className="I" style={{marginRight: '0px'}}>{process.name}</b>
             </p>
         )
     ))
     result.push(<br/>)
     return result;
+}
+
+const handleHistory = (allPackages) => {
+    const histories = allPackages.os.history()
+    let result = []
+    histories.map(([index, history])=>(
+        result.push(
+            <p className="indented">
+                <b className="I" style={{marginRight: '30px'}}>{index}</b>
+                <b className="I" style={{marginRight: '30px'}}>{history}</b>
+            </p>
+        )
+    ))
+    result.push(<br/>)
+    return result;
+}
+
+const handleBang = (allPackages) => {
+    try{
+        const commandId = parseInt(allPackages.commandSelector[0].slice(1));
+        const command = allPackages.os.histories[commandId];
+        return ParseCommand(command,allPackages);
+    }catch (err){
+        return  [<p>-shell: {allPackages.command}: event not found<br/>⠀</p>]
+    }
+
 }
 
 function secondsToHMS(secs) {

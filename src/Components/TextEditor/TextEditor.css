@@ -1,0 +1,23 @@
+.editor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 20px;
+}
+
+.text_editor{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.editor_area{
+    height: 100%;
+    resize: none;
+    color: #00FF7F
+}
+:root {
+    /*--overlay:#64ffdb44;*/
+    --overlay: rgba(255, 255, 255, 0);
+}
+  

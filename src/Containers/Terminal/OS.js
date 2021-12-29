@@ -10,35 +10,47 @@ const initializeLocalStorage = () =>{
     saveData(default_files)
 }
 
-const saveData = (tree) => {
+const saveData = (tree, key='krishna-jalan-files') => {
     let stringFileStructure = JSON.stringify(tree)
-    localStorage.setItem('krishna-jalan-files',stringFileStructure)
+    localStorage.setItem(key, stringFileStructure)
 }
 
+const filterArray=(a,b)=>{return a.filter((e)=>{return e!==b})}
 export default class OS extends React.Component {
     user = 'guest'
     tree
     currentDirectory
     histories = [""]
-    idx = -1
-    terminalString = (isMobile)?'~$ ':(this.user + '@KrishnaJalan:~$ ')
+    idx = 0
+    pwd = '~'
+    terminalString = ((!isMobile)? (this.user + '@KrishnaJalan:'):'') + this.pwd + '$ '
 
 
     constructor(props){
         super(props)
         initializeLocalStorage();
         this.tree = JSON.parse(localStorage.getItem('krishna-jalan-files'))
+        this.histories = JSON.parse(localStorage.getItem('history')) || [""]
         this.currentDirectory = this.tree
+    }
+
+    saveState(){
+        saveData(this.tree)
     }
 
     ls(){
         return this.currentDirectory
     }
 
-    cd(parameters,path){
+    updateHistory(command){
+        this.histories.push(command)
+        saveData(this.histories, 'history')
+    }
+
+    cd(parameters, path){
 
         let numberOfReversals = parameters.split('..').length - 1
-
+        path = path.replaceAll('$', '');
         let absoluteSystemPath = path.split('/')
         if(numberOfReversals >= absoluteSystemPath.length)
             return ''
@@ -50,50 +62,112 @@ export default class OS extends React.Component {
         }
 
         let temp = [...absoluteSystemPath]
-        let subDirectory = this.tree;
-        for(let name in temp.splice(0,1)){
-            name = temp[name]
-            let index = -1;
-            subDirectory.forEach((item,ind)=>{
-                if(item.name === name && item.type === 'folder')
-                    index = ind
-            })
-            if(index >= 0)
-                subDirectory = subDirectory[index].children;
-        }        
+        if (numberOfReversals>0){
+            let subDirectory = this.tree;
+            for(let name in temp){
+                name = temp[name]
+                let index = -1;
+                subDirectory.forEach((item,ind)=>{
+                    if(item.name === name && item.type === 'folder')
+                        index = ind
+                })
+                if(index >= 0)
+                    subDirectory = subDirectory[index].children;
+            }
+            this.currentDirectory = subDirectory;
+        }
+
+        const filterArray=(a,b)=>{return a.filter((e)=>{return e!==b})}
+        let locations = filterArray(parameters.replaceAll('.', '').split('/'),"")
+        let cumalitivePath = absoluteSystemPath.join('/')
 
 
-        if(numberOfReversals <= 0){
-            let locations = parameters.split('/')
-            let cumalitivePath = path
-            for(let i = 0; i < locations.length;i++){
-                let fileName = locations[i];
-                for(let j = 0; j < this.currentDirectory.length; j++){
-                    let item = this.currentDirectory[j]
-                    if(item.name === fileName && item.type === 'folder'){
-                        this.terminalString = item.path
-                        this.currentDirectory = item.children;
-                        
-                        cumalitivePath += '/' + item.name
-                        cumalitivePath = cumalitivePath.replaceAll(' ','')
-                    }
+        for(let i = 0; i < locations.length;i++){
+            let fileName = locations[i];
+            let found = false;
+            for(let j = 0; j < this.currentDirectory.length; j++){
+                let item = this.currentDirectory[j]
+                if(item.name === fileName && item.type === 'folder'){
+                    found = true;
+                    this.pwd = item.path
+                    this.currentDirectory = item.children;
+                    
+                    cumalitivePath += '/' + item.name
+                    cumalitivePath = cumalitivePath.replaceAll(' ','')
                 }
             }
-            return cumalitivePath + ' ';
+            if (!found)return -1;
         }
-        else{
-            this.currentDirectory = subDirectory;
+        return cumalitivePath.replaceAll(' ','')+ '$ ';
+    }
 
-            let result = ''
-            absoluteSystemPath.map((item)=>result += '/' + item)
-            result = result.replaceAll(' ','')
-            return result.substring(1) + ' ' 
+    getfiles(parameters, path){
+        let numberOfReversals = parameters.split('..').length - 1
+        path = path.replaceAll('$', '').replace(' ', '')
+
+        let absoluteSystemPath = path.split('/')
+        if(numberOfReversals >= absoluteSystemPath.length)
+            return ''
+
+        //console.log('numberofrev:' + numberOfReversals  + 'before')
+        for(let i = 0; i < numberOfReversals; i++){
+            absoluteSystemPath.pop()
         }
+
+        let temp = [...absoluteSystemPath]
+        if (numberOfReversals>0){
+            let subDirectory = this.tree;
+            for(let name in temp){
+                name = temp[name]
+                let index = -1;
+                subDirectory.forEach((item,ind)=>{
+                    if(item.name === name && item.type === 'folder')
+                        index = ind
+                })
+                if (index === -1) return -1;
+                if(index >= 0)
+                    subDirectory = subDirectory[index].children;
+            }
+            temp = subDirectory;
+        }else{
+            temp = this.currentDirectory;
+        }
+        
+
+        let locations = filterArray(parameters.replaceAll('.', '').split('/'),"")
+
+        for(let i = 0; i < locations.length;i++){
+            let fileName = locations[i];
+            let found = false;
+            for(let j = 0; j < temp.length; j++){
+                let item = temp[j]
+                if(item.name === fileName && item.type === 'folder'){
+                    temp = item.children;
+                }
+            }
+            if (!found)return -1;
+        }
+        return temp;
+    }
+
+    history(){
+        return Array.from(this.histories.entries()).slice(1).map((item)=>[item[0], item[1]])
     }
 
     mkdir(allPackages){
         const { path, commandSelector } = allPackages
         let absoluteSystemPath = path.split('/')
+
+        if (filterArray(commandSelector[1].split('/')).length > 1)
+            return [<p>mkdir: Recursive directory creation not supported</p>, <br></br>];
+            
+ 
+        for (let i = 0; i < this.currentDirectory.length; i++) {
+            let item = this.currentDirectory[i]
+            if (item.name === commandSelector[1] && item.type === 'folder') {
+                return [<p>mkdir: directory '{commandSelector[1]}' already exists</p>, <br></br>];
+            }
+        }
         this.currentDirectory.push(
             {
                 "type" : "folder",
@@ -117,7 +191,7 @@ export default class OS extends React.Component {
                 "type" : "file",
                 "name" : commandSelector[1],
                 "path" : "/" + absoluteSystemPath[absoluteSystemPath.length - 2],
-                "privileges" : ["read","write","execute"],
+                "privileges" : ["read","write"],
                 "owner" : [this.user]
             }
         )
@@ -135,6 +209,7 @@ export default class OS extends React.Component {
         let fileName = commandSelector[1]
         let absoluteSystemPath = path.split('/')
         fileName = fileName.replaceAll('*','.*')
+        fileName = '^' + fileName + '$'
         let removedItem = this.currentDirectory.findIndex((el)=>el.name.match(fileName))
         while(removedItem >= 0){
 

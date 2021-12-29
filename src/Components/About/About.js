@@ -5,7 +5,7 @@ import '../../Containers/Terminal/Terminal.css'
 const About = () =>{
     return(
     <section className = "main section">
-        <div className="about">
+        <div className="about" >
             <div className="text">
                 <div  className="header">
                     <h1>About Me</h1>

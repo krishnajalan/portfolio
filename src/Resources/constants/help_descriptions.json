@@ -34,5 +34,21 @@
     {
         "command":"ps",
         "description":"list all processes"
+    },
+    {
+        "command":"history",
+        "description":"list all commands used in this session"
+    },
+    {
+        "command":"help",
+        "description":"list all commands"
+    },
+    {
+        "command":"![history id]",
+        "description":"execute command corresponding to history id"
+    },
+    {
+        "command": "edit path/to/file",
+        "description": "edit file in nano inspired editor"
     }
 ]
