@@ -55,7 +55,7 @@
                         {
                             "type" : "file",
                             "name" : "passwords.dat",
-                            "contents" : "guest\nguestPassword\niliyan\nmyFavoritePassword",
+                            "contents" : "guest\nguestPassword\nroot\n",
                             "path" : "/data",
                             "privileges" : ["read","write"],
                             "owner" : ["root"]
