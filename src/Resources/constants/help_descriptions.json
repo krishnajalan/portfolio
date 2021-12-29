@@ -48,6 +48,10 @@
         "description":"execute command corresponding to history id"
     },
     {
+        "command": "cat path/to/file",
+        "description": "display contents of file"
+    },
+    {
         "command": "edit path/to/file",
         "description": "edit file in nano inspired editor"
     }
