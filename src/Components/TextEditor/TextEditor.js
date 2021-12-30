@@ -12,10 +12,14 @@ const TextEditor = ({allPackages}) =>{
     const handleSpecialKey = (event,  allPackages) => {
         let charCode = String.fromCharCode(event.which).toLowerCase();
         
-        if (event.ctrlKey && charCode === 'q') {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setText(event.target.value + '\t');
+        }
+        else if (event.ctrlKey && charCode === 'q') {
             allPackages.setEditor(false);
         }
-        if (event.ctrlKey && charCode === 's'){
+        else if (event.ctrlKey && charCode === 's'){
             event.preventDefault();
             allPackages.file.contents = text;
             allPackages.os.saveState();
@@ -27,6 +31,7 @@ const TextEditor = ({allPackages}) =>{
         <div className='main text_editor'>
             
             <textarea
+                autoFocus
                 className='editor_area'
                 ref = {allPackages.inputRef}
                 type='text' 

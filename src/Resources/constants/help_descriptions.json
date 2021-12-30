@@ -54,5 +54,9 @@
     {
         "command": "edit path/to/file",
         "description": "edit file in nano inspired editor"
+    },
+    {
+        "command": "pwd",
+        "description": "print working directory"
     }
 ]

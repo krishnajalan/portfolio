@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import './Terminal.css'
 import OS from './OS'
-import CommandParser from './CommandParser'
+import {ParseCommand as CommandParser, allCommands} from './CommandParser'
 import starter_command_descriptions from '../../Resources/constants/starter_command_descriptions.json'
 import { isMobile } from 'react-device-detect'
 import TextEditor from '../../Components/TextEditor/TextEditor.js';
@@ -59,7 +59,71 @@ const handleSpecialKey = (event, allPackages) => {
 
     else if (event.key === 'Tab') {
         event.preventDefault();
+        console.log(event.target.value, event);
+        let input = event.target.value;
+        if (input.length > 0 && event.target?.selectionStart === input.length) {
+            input = input.split(/\s/);
+            if(input.length === 1){
+                let commands = [];
+                allCommands.map((commandDesc) => {
+                        let command = String(commandDesc.command).slice(2, -2);
+                        return command.startsWith(input.slice(-1)) && commands.push(command);
+                    })
+                if (commands.length === 1) {
+                    input[input.length-1] = commands[0];
+                    input = input.join(' ');
+                    allPackages.setCommand(input);
+                }else if (commands.length > 1) {
+                    let result = [
+                        ...allPackages.content,
+                        <p>{allPackages.path + allPackages.command}</p>,
+                        <ol className="ls">
+                            {commands.map((command, idx)=> <li key={idx}>{command}</li>)}
+                        </ol>,
+                        <br/>
+                    ]
+                    allPackages.setContent(result);
+                }
+            }
+            else if (input.length > 0){
+                let command = input[input.length-1];
+                
+                let fileName = command.split('/').slice(-1)[0]
+                let filePath = command.split('/').slice(0, -1).join('/')
+
+                
+                let files = allPackages.os.ls(filePath || "", allPackages.path)
+                let matchFile = files.filter( (file) => file.name.startsWith(fileName))
+                console.log("path", filePath, fileName, files);
+                if ( !filePath ) filePath = '.'
+                if (matchFile.length === 1) {
+                    input[input.length-1] = filePath+'/'+ matchFile[0].name;
+                    if (matchFile[0].type === 'folder') input[input.length-1] += '/'
+                    input = input.join(' ');
+                    allPackages.setCommand(input);
+                }
+                else if (matchFile.length > 1) {
+                    let result = [
+                        ...allPackages.content,
+                        <p>{allPackages.path + allPackages.command}</p>,
+                        <ol className="ls">
+                            {matchFile.map((file, idx)=>
+                            {
+                                if(file.type === "folder")
+                                    return <li key={idx} className="I">{file.name}/</li>
+                                else
+                                    return <li key={idx}>{file.name}</li>
+                                }
+                            )}
+                        </ol>,
+                        <br/>
+                    ]
+                    allPackages.setContent(result);
+                }
+            }
+        }
     }
+
     else if (event.ctrlKey && charCode === 'l') {
         allPackages.command = "clear";
         terminalSubmit(event, allPackages);

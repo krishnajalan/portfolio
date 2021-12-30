@@ -76,6 +76,11 @@ let allCommands = [
         command: /^edit$/,
         arguments: 2,
         runFunction: (allPackages) => handleEdit(allPackages)
+    },
+    {
+        command: /^pwd$/,
+        arguments: 1,
+        runFunction: (allPackages) => handlePWD(allPackages)
     }
 ]
 
@@ -87,7 +92,7 @@ const ParseCommand = (command,allPackages) =>{
     allCommands.forEach((commandObj)=>{
         if(allPackages.commandSelector[0].match(commandObj.command)){
             foundCommand = true;
-            if(allPackages.commandSelector.length === commandObj.arguments){
+            if(allPackages.commandSelector.length >= commandObj.arguments){
                 result = commandObj.runFunction(allPackages);
                 return result
             }
@@ -105,17 +110,28 @@ const ParseCommand = (command,allPackages) =>{
 }
 
 const handleLS = (allPackages) =>{
-    const { os } = allPackages;
-    let result = []
-    let respond = os.ls();
-    respond.map((item)=>{
+    const { os, commandSelector, path } = allPackages;
+    let result = [];
+    let respond = os.ls(commandSelector[1]||"", path);
+    if (respond === -1){
+        result.push(<p>ls: {commandSelector[1]}: No such file or directory</p>)
+        return result;
+    }
+    else if (respond === -2){
+        result.push(<p>ls: {commandSelector[1]}: Not a directory</p>)
+        return result;
+    }
+    if (respond === "")
+        result.push(<p>Can't open {commandSelector[1]}</p>)
+
+    respond.map((item, idx)=>{
         if(item.type === "folder")
-            return result.push(<p  className="indented I">{item.name}/</p>)
+            return result.push(<li key={idx} className="I">{item.name}/</li>)
         else
-            return result.push(<p  className="indented">{item.name}</p>)
+            return result.push(<li key={idx}>{item.name}</li>)
     })
-    result.push(<br/>)
-    return result;
+    result.join(' ')
+    return [<ol className="ls">{result}</ol>]
 }
 
 const handleCD = (allPackages) =>{
@@ -126,6 +142,8 @@ const handleCD = (allPackages) =>{
         result.push(<p>Can't open {commandSelector[1]}</p>)
     else if (newPath === -1)
         result.push(<p>cd: {commandSelector[1]}: No such file or directory</p>)
+    else if (newPath === -2)
+        result.push(<p>cd: {commandSelector[1]}: Not a directory</p>)
     else
         setPath(newPath)
     
@@ -137,12 +155,13 @@ const handleCat = (allPackages) =>{
     let result = []
     let fileName = commandSelector[1].split('/').slice(-1)[0]
     let filePath = commandSelector[1].split('/').slice(0, -1).join('/')
-    if (fileName === "") result.push(<p>cat: Invalid File Name Supplied</p>)
-
-    let newPath = os.getfiles(filePath, path);
-    if (newPath === -1)
-        result.push(<p>cat: {commandSelector[1]}: No such file or directory</p>)
     
+    if (fileName === "") result.push(<p>cat: Invalid File Name Supplied</p>)
+    let newPath = os.getfiles(filePath, path);
+    if (newPath === -1){
+        result.push(<p>cat: {commandSelector[1]}: No such file or directory</p>)
+        return result;
+    }    
     let found = false;
     for(let i=0; i<newPath.length; i++){
         if(newPath[i].name === fileName){
@@ -286,6 +305,11 @@ const handleBang = (allPackages) => {
 
 }
 
+const handlePWD = (allPackages) => {
+    const path = allPackages.path.replace('$', '').split(':').slice(-1);
+    return [<p>{path}<br/>⠀</p>]
+}
+
 function secondsToHMS(secs) {
     secs = secs | 0;
     function z(n){return (n<10?'0':'') + n;}
@@ -310,4 +334,4 @@ const rejectCommand = (received,expected) =>{
     return <p>Incorrect Number of arguments. Received: {received}, expected: {expected}<br/>⠀</p>;  
 }
 
-export default ParseCommand
+export { ParseCommand, allCommands}

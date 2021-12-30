@@ -248,3 +248,11 @@ input{
     font-family:monospace;
     caret-color: #00FF7F;
 }
+
+.ls{
+    list-style: none;
+    /* width: 50%; */
+    margin-left: 15px;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );;
+}

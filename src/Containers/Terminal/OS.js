@@ -9,6 +9,9 @@ const initializeLocalStorage = () =>{
     
     saveData(default_files)
 }
+const isValidFolderName = (fileName) => {
+    return fileName.match(/^[^\s^\x00-\x1f\\?*:"";<>|\/.][^\x00-\x1f\\?*:"";<>|\/]*[^\s^\x00-\x1f\\?*:"";<>|\/.]+$/g);
+}
 
 const saveData = (tree, key='krishna-jalan-files') => {
     let stringFileStructure = JSON.stringify(tree)
@@ -38,8 +41,8 @@ export default class OS extends React.Component {
         saveData(this.tree)
     }
 
-    ls(){
-        return this.currentDirectory
+    ls(parameter, path){
+        return this.getfiles(parameter, path)
     }
 
     updateHistory(command){
@@ -77,26 +80,34 @@ export default class OS extends React.Component {
             this.currentDirectory = subDirectory;
         }
 
-        const filterArray=(a,b)=>{return a.filter((e)=>{return e!==b})}
         let locations = filterArray(parameters.replaceAll('.', '').split('/'),"")
         let cumalitivePath = absoluteSystemPath.join('/')
-
+        let backupState = this.currentDirectory;
 
         for(let i = 0; i < locations.length;i++){
             let fileName = locations[i];
             let found = false;
             for(let j = 0; j < this.currentDirectory.length; j++){
                 let item = this.currentDirectory[j]
-                if(item.name === fileName && item.type === 'folder'){
-                    found = true;
-                    this.pwd = item.path
-                    this.currentDirectory = item.children;
-                    
-                    cumalitivePath += '/' + item.name
-                    cumalitivePath = cumalitivePath.replaceAll(' ','')
+                if(item.name === fileName){
+                    if (item.type === 'folder'){
+                        found = true;
+                        this.pwd = item.path
+                        this.currentDirectory = item.children;
+                        
+                        cumalitivePath += '/' + item.name
+                        cumalitivePath = cumalitivePath.replaceAll(' ','')
+                    }
+                    else{
+                        return -2;
+                    }
                 }
+                
             }
-            if (!found)return -1;
+            if (!found){
+                this.currentDirectory = backupState;
+                return -1;
+            }
         }
         return cumalitivePath.replaceAll(' ','')+ '$ ';
     }
@@ -141,8 +152,14 @@ export default class OS extends React.Component {
             let found = false;
             for(let j = 0; j < temp.length; j++){
                 let item = temp[j]
-                if(item.name === fileName && item.type === 'folder'){
-                    temp = item.children;
+                if(item.name === fileName){
+                    if (item.type === 'folder'){
+                        found = true;
+                        temp = item.children;
+                    }
+                    else{
+                        return -2;
+                    }
                 }
             }
             if (!found)return -1;
@@ -156,46 +173,85 @@ export default class OS extends React.Component {
 
     mkdir(allPackages){
         const { path, commandSelector } = allPackages
-        let absoluteSystemPath = path.split('/')
 
-        if (filterArray(commandSelector[1].split('/')).length > 1)
-            return [<p>mkdir: Recursive directory creation not supported</p>, <br></br>];
-            
- 
-        for (let i = 0; i < this.currentDirectory.length; i++) {
-            let item = this.currentDirectory[i]
-            if (item.name === commandSelector[1] && item.type === 'folder') {
-                return [<p>mkdir: directory '{commandSelector[1]}' already exists</p>, <br></br>];
+        let result = []
+        let fileName = commandSelector[1].split('/').slice(-1)[0]
+        let absoluteSystemPath = commandSelector[1].split('/').slice(0, -1)
+        let filePath = absoluteSystemPath.join('/')
+
+        if (fileName ==="" || !isValidFolderName(fileName)){
+            result.push(<p>mkdir: cannot mkdir {fileName} : Invalid folder name</p>, <br></br>)
+            return result
+        }
+
+        let directory = this.getfiles(filePath, path)
+
+        if (directory === -1 || !directory) {
+            result.push(<p>mkdir: cannot mkdir {filePath}: No such file or directory</p>)
+            return result
+        }
+
+        for (let i = 0; i < directory.length; i++) {
+            let item = directory[i]
+            if (item.name === fileName) {
+                return [<p>mkdir: '{fileName}' already exists</p>, <br></br>];
             }
         }
-        this.currentDirectory.push(
+
+        directory.push(
             {
                 "type" : "folder",
-                "name" : commandSelector[1],
-                "path" : "/" + absoluteSystemPath[absoluteSystemPath.length - 2],
+                "name" : fileName,
+                "path" : "/" + absoluteSystemPath[absoluteSystemPath.length - 1],
                 "privileges" : ["read","write","execute"],
                 "owner" : [this.user],
                 "children":[]
             }
         )
-        this.tree[absoluteSystemPath] = this.currentDirectory
+        
         saveData(this.tree)
         
     }
 
     touch(allPackages){
+
         const { path, commandSelector } = allPackages
-        let absoluteSystemPath = path.split('/')
-        this.currentDirectory.push(
+
+        let result = []
+        let fileName = commandSelector[1].split('/').slice(-1)[0]
+        let absoluteSystemPath = commandSelector[1].split('/').slice(0, -1)
+        let filePath = absoluteSystemPath.join('/')
+
+        if (fileName==="" || !isValidFolderName(fileName)){
+            result.push(<p>touch: cannot touch {fileName} : Invalid file name</p>, <br></br>)
+            return result
+        }
+
+        let directory = this.getfiles(filePath, path)
+
+        if (directory === -1 || !directory) {
+            result.push(<p>touch: cannot touch {filePath}: No such file or directory</p>)
+            return result
+        }
+
+        for (let i = 0; i < directory.length; i++) {
+            let item = directory[i]
+            if (item.name === fileName) {
+                return [<p>touch: '{commandSelector[1]}' already exists</p>, <br></br>];
+            }
+        }
+        
+
+        directory.push(
             {
                 "type" : "file",
-                "name" : commandSelector[1],
-                "path" : "/" + absoluteSystemPath[absoluteSystemPath.length - 2],
+                "name" : fileName,
+                "path" : "/" + absoluteSystemPath[absoluteSystemPath.length - 1],
                 "privileges" : ["read","write"],
                 "owner" : [this.user]
             }
         )
-        this.tree[absoluteSystemPath] = this.currentDirectory
+        // this.tree[absoluteSystemPath] = this.currentDirectory
         saveData(this.tree)
         
     }
@@ -206,23 +262,44 @@ export default class OS extends React.Component {
 
     rm(allPackages){
         const { path, commandSelector } = allPackages
-        let fileName = commandSelector[1]
-        let absoluteSystemPath = path.split('/')
+
+        let result = []
+        let fileName = commandSelector[1].split('/').slice(-1)[0]
+        let absoluteSystemPath = commandSelector[1].split('/').slice(0, -1)
+        let filePath = absoluteSystemPath.join('/')
+
+        if (fileName===""){
+            result.push(<p>rm: cannot rm: No filename provided</p>, <br></br>)
+            return result
+        }
+
+        let directory = this.getfiles(filePath, path)
+
+        if (directory === -1 || !directory) {
+            result.push(<p>rm: cannot rm {filePath}: No such file or directory</p>)
+            return result
+        }
+
         fileName = fileName.replaceAll('*','.*')
         fileName = '^' + fileName + '$'
-        let removedItem = this.currentDirectory.findIndex((el)=>el.name.match(fileName))
+        let removedItem = directory.findIndex((el)=>el.name.match(fileName))
+        
+        if (removedItem === -1){
+            result.push(<p>rm: cannot rm {filePath}: No such file or directory</p>)
+            return result
+        }
+
         while(removedItem >= 0){
 
-            let permissions = this.currentDirectory[removedItem].owner
+            let permissions = directory[removedItem].owner
             let permissionsCheck = (permissions.length === 0 || permissions.includes(this.user))
 
             if(permissionsCheck){
-                this.currentDirectory.splice(removedItem,1)
-                this.tree[absoluteSystemPath] = this.currentDirectory
-                saveData(this.tree)
+                directory.splice(removedItem,1)
             }
-            removedItem = this.currentDirectory.findIndex((el)=>(el.name.match(fileName) && permissionsCheck)) 
+            removedItem = directory.findIndex((el)=>(el.name.match(fileName) && permissionsCheck)) 
         }
+        saveData(this.tree)
     }
 
     open(parameters){

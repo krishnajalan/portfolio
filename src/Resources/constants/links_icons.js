@@ -10,16 +10,16 @@ const links_icons =
         icon : GITHUB
     },
     {
-        link : 'https://www.instagram.com/krishna_jalan_/',
-        icon : INSTAGRAM
-    },
-    {
         link : 'https://www.linkedin.com/in/krishna-jalan/',
         icon : LINKEDIN
     },
     {
+        link : 'https://www.instagram.com/krishna_jalan_/',
+        icon : INSTAGRAM
+    },
+    {
         link : 'https://drive.google.com/file/d/17YwjfCq5EiX8jC8SMxmMdIDwJnXPm4K4/view?usp=sharing',
         icon : RESUME
-    }
+    },
 ]
 export default links_icons

@@ -74,6 +74,7 @@
 
 .section {
   color: var(--fontColor);
+  text-align: justify;
 }
 
 .header {
