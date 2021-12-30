@@ -4915,6 +4915,11 @@ filename-reserved-regex@^2.0.0:
   resolved "https://registry.npmjs.org/filename-reserved-regex/-/filename-reserved-regex-2.0.0.tgz"
   integrity sha1-q/c9+rc10EVECr/qLZHzieu/oik=
 
+filename-reserved-regex@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/filename-reserved-regex/-/filename-reserved-regex-3.0.0.tgz"
+  integrity sha512-hn4cQfU6GOT/7cFHXBqeBg2TbrMBgdD0kcjLhvSQYYwm3s4B6cjvBfb7nBALJLAXqmU5xajSa7X2NnUud/VCdw==
+
 filenamify@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/filenamify/-/filenamify-4.3.0.tgz"
@@ -11017,6 +11022,13 @@ v8-to-istanbul@^8.1.0:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^1.6.0"
     source-map "^0.7.3"
+
+valid-filename@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/valid-filename/-/valid-filename-4.0.0.tgz"
+  integrity sha512-VEYTpTVPMgO799f2wI7zWf0x2C54bPX6NAfbZ2Z8kZn76p+3rEYCTYVYzMUcVSMvakxMQTriBf24s3+WeXJtEg==
+  dependencies:
+    filename-reserved-regex "^3.0.0"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"

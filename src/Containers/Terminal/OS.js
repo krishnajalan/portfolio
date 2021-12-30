@@ -2,6 +2,10 @@ import React from 'react'
 
 import default_files from '../../Resources/constants/default_files.json'
 import { isMobile } from 'react-device-detect'
+
+import isValidFilename from 'valid-filename';
+
+
 const initializeLocalStorage = () =>{
     let tree = localStorage.getItem('krishna-jalan-files');
     if(tree !== null)
@@ -9,9 +13,7 @@ const initializeLocalStorage = () =>{
     
     saveData(default_files)
 }
-const isValidFolderName = (fileName) => {
-    return fileName.match(/^[^\s^\x00-\x1f\\?*:"";<>|\/.][^\x00-\x1f\\?*:"";<>|\/]*[^\s^\x00-\x1f\\?*:"";<>|\/.]+$/g);
-}
+
 
 const saveData = (tree, key='krishna-jalan-files') => {
     let stringFileStructure = JSON.stringify(tree)
@@ -179,7 +181,7 @@ export default class OS extends React.Component {
         let absoluteSystemPath = commandSelector[1].split('/').slice(0, -1)
         let filePath = absoluteSystemPath.join('/')
 
-        if (fileName ==="" || !isValidFolderName(fileName)){
+        if (fileName ==="" || !isValidFilename(fileName)){
             result.push(<p>mkdir: cannot mkdir {fileName} : Invalid folder name</p>, <br></br>)
             return result
         }
@@ -222,7 +224,7 @@ export default class OS extends React.Component {
         let absoluteSystemPath = commandSelector[1].split('/').slice(0, -1)
         let filePath = absoluteSystemPath.join('/')
 
-        if (fileName==="" || !isValidFolderName(fileName)){
+        if (fileName==="" || !isValidFilename(fileName)){
             result.push(<p>touch: cannot touch {fileName} : Invalid file name</p>, <br></br>)
             return result
         }

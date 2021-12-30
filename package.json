@@ -29,6 +29,7 @@
     "react-test-renderer": "^17.0.2",
     "react-tooltip": "^4.2.11",
     "react-typing-effect": "^2.0.4",
+    "valid-filename": "^4.0.0",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
