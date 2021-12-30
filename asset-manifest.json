@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/krishna_jalan/static/css/main.a1961f29.css",
-    "main.js": "/krishna_jalan/static/js/main.751d3efa.js",
+    "main.css": "/krishna_jalan/static/css/main.197cd9fe.css",
+    "main.js": "/krishna_jalan/static/js/main.1b4f1c9f.js",
     "static/media/avatar.jpg": "/krishna_jalan/static/media/avatar.9d2518b1ed8b3966e2af.jpg",
-    "static/media/2_lines.woff": "/krishna_jalan/static/media/2_lines.8411e7711288415028ac.woff",
+    "static/media/2_lines.woff": "/krishna_jalan/static/media/2_lines.76327b932046542e0e55.woff",
     "static/media/external-link.svg": "/krishna_jalan/static/media/external-link.266677e5dc50cf111e26eee1c3dbb8ac.svg",
     "static/media/instagram.svg": "/krishna_jalan/static/media/instagram.f0cfa30d48f79bb3d8c99ebf43dea781.svg",
     "static/media/resume.svg": "/krishna_jalan/static/media/resume.bd3a2df8492b8db93a613ede5eacf3fa.svg",
@@ -11,11 +11,11 @@
     "static/media/folder.svg": "/krishna_jalan/static/media/folder.16edb5e8f9be83a7a96bacafc46b8685.svg",
     "static/media/github.svg": "/krishna_jalan/static/media/github.16a9304e38fd8167989291ab92544e14.svg",
     "static/media/linkedin.svg": "/krishna_jalan/static/media/linkedin.03f1d164221e3a81954e6ec24a350288.svg",
-    "main.a1961f29.css.map": "/krishna_jalan/static/css/main.a1961f29.css.map",
-    "main.751d3efa.js.map": "/krishna_jalan/static/js/main.751d3efa.js.map"
+    "main.197cd9fe.css.map": "/krishna_jalan/static/css/main.197cd9fe.css.map",
+    "main.1b4f1c9f.js.map": "/krishna_jalan/static/js/main.1b4f1c9f.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1961f29.css",
-    "static/js/main.751d3efa.js"
+    "static/css/main.197cd9fe.css",
+    "static/js/main.1b4f1c9f.js"
   ]
 }
