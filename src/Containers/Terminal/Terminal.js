@@ -59,7 +59,6 @@ const handleSpecialKey = (event, allPackages) => {
 
     else if (event.key === 'Tab') {
         event.preventDefault();
-        console.log(event.target.value, event);
         let input = event.target.value;
         if (input.length > 0 && event.target?.selectionStart === input.length) {
             input = input.split(/\s/);
@@ -94,7 +93,6 @@ const handleSpecialKey = (event, allPackages) => {
                 
                 let files = allPackages.os.ls(filePath || "", allPackages.path)
                 let matchFile = files.filter( (file) => file.name.startsWith(fileName))
-                console.log("path", filePath, fileName, files);
                 if ( !filePath ) filePath = '.'
                 if (matchFile.length === 1) {
                     input[input.length-1] = filePath+'/'+ matchFile[0].name;
@@ -163,6 +161,9 @@ const terminalSubmit = (e, allPackages) => {
             let addition = CommandParser(indivCommand.trim(), allPackages)
             if (addition === 'clear')
                 tempArr = clear_screen_text();
+            else if (addition === 'exit'){
+                allPackages.removeTab(0);
+            }
             else
                 tempArr = tempArr.concat(addition)
         }

@@ -81,6 +81,11 @@ let allCommands = [
         command: /^pwd$/,
         arguments: 1,
         runFunction: (allPackages) => handlePWD(allPackages)
+    },
+    {
+        command: /^exit$/,
+        arguments: 1,
+        runFunction: (allPackages) => "exit"
     }
 ]
 
@@ -215,7 +220,6 @@ const handleEdit = (allPackages) =>{
     }
 
     if (item!==null){
-        console.log(item)
         allPackages.setEditor(true);
         allPackages.setFile(item);
     }   
