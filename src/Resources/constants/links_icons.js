@@ -18,7 +18,7 @@ const links_icons =
         icon : INSTAGRAM
     },
     {
-        link : 'https://drive.google.com/file/d/17YwjfCq5EiX8jC8SMxmMdIDwJnXPm4K4/view?usp=sharing',
+        link : 'https://drive.google.com/file/d/1ToE7cbqr8Sv9Lyhoon-ZTJbkL2ohOaWe/view?usp=sharing',
         icon : RESUME
     },
 ]
