@@ -290,7 +290,7 @@ export default class OS extends React.Component {
             result.push(<p>rm: cannot rm {filePath}: No such file or directory</p>)
             return result
         }
-
+        
         while(removedItem >= 0){
 
             let permissions = directory[removedItem].owner
@@ -298,16 +298,32 @@ export default class OS extends React.Component {
 
             if(permissionsCheck){
                 directory.splice(removedItem,1)
+            }else{
+                result.push(<p>rm: cannot rm {filePath+'/'+directory[removedItem].name}: Permission denied</p>)
             }
             removedItem = directory.findIndex((el)=>(el.name.match(fileName) && permissionsCheck)) 
         }
         saveData(this.tree)
+        return result
     }
 
-    open(parameters){
-        let index = this.currentDirectory.findIndex(el=>el.name === parameters)
+    open(allPackages){
+        const { path, commandSelector } = allPackages
+
+        let result = []
+        let fileName = commandSelector[1].split('/').slice(-1)[0]
+        let absoluteSystemPath = commandSelector[1].split('/').slice(0, -1)
+        let filePath = absoluteSystemPath.join('/')
+
+        if (fileName===""){
+            result.push(<p>rm: cannot rm: No filename provided</p>, <br></br>)
+            return result
+        }
+        let directory = this.getfiles(filePath, path)
+
+        let index = directory.findIndex(el=>el.name === fileName)
         if(index >= 0)
-            return this.currentDirectory[index]
+            return directory[index]
         else
             return false
     }

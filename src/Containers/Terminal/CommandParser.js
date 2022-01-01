@@ -228,18 +228,22 @@ const handleEdit = (allPackages) =>{
 
 
 const handleOPEN = (allPackages) =>{
-    const { os, commandSelector, path } = allPackages;
-    let result = [];
-    let file = os.open(commandSelector[1],path)
+    const { os,commandSelector }  = allPackages;
+    let fileName = commandSelector[1].split('/').slice(-1)[0]
+    let result = []
+
+    let file = os.open(allPackages)
     let owners = file?.owner
     if (commandSelector[1] === "Contact")
             allPackages.addTab(commandSelector[1]);
     if(!owners)
-        result.push(<p>{commandSelector[1]} not found<br/>⠀</p>)
-    else if(owners.length === 0 || owners.includes(os.user)){
+        result.push(<p>open: {commandSelector[1]} not found<br/>⠀</p>)
+
+    else if(owners.length === 0 || owners.includes(os.user))
+    {
         result.push(<p>Opening {commandSelector[1]}<br/>⠀</p>)
-        if (["About", "Experience", "Work", "snakeGame.exe"].includes(commandSelector[1]))
-            allPackages.addTab(commandSelector[1]);
+        if (["About", "Experience", "Work", "snakeGame.exe"].includes(fileName))
+            allPackages.addTab(fileName);
     }
     else
         result.push(<p>Permission denied owners: {owners.map((owner)=>owner)}<br/>⠀</p>)
