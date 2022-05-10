@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.c5fccf97.css",
-    "main.js": "/portfolio/static/js/main.af0ef317.js",
-    "static/media/avatar.jpg": "/portfolio/static/media/avatar.9d2518b1ed8b3966e2af.jpg",
-    "static/media/2_lines.woff": "/portfolio/static/media/2_lines.76327b932046542e0e55.woff",
-    "static/media/external-link.svg": "/portfolio/static/media/external-link.266677e5dc50cf111e26eee1c3dbb8ac.svg",
-    "static/media/instagram.svg": "/portfolio/static/media/instagram.f0cfa30d48f79bb3d8c99ebf43dea781.svg",
-    "static/media/resume.svg": "/portfolio/static/media/resume.bd3a2df8492b8db93a613ede5eacf3fa.svg",
-    "index.html": "/portfolio/index.html",
-    "static/media/folder.svg": "/portfolio/static/media/folder.16edb5e8f9be83a7a96bacafc46b8685.svg",
-    "static/media/github.svg": "/portfolio/static/media/github.16a9304e38fd8167989291ab92544e14.svg",
-    "static/media/linkedin.svg": "/portfolio/static/media/linkedin.03f1d164221e3a81954e6ec24a350288.svg",
-    "main.c5fccf97.css.map": "/portfolio/static/css/main.c5fccf97.css.map",
-    "main.af0ef317.js.map": "/portfolio/static/js/main.af0ef317.js.map"
+    "main.css": "/static/css/main.207cc7cf.css",
+    "main.js": "/static/js/main.d792d88a.js",
+    "static/media/avatar.jpg": "/static/media/avatar.9d2518b1ed8b3966e2af.jpg",
+    "static/media/2_lines.woff": "/static/media/2_lines.76327b932046542e0e55.woff",
+    "static/media/external-link.svg": "/static/media/external-link.266677e5dc50cf111e26eee1c3dbb8ac.svg",
+    "static/media/instagram.svg": "/static/media/instagram.f0cfa30d48f79bb3d8c99ebf43dea781.svg",
+    "static/media/resume.svg": "/static/media/resume.bd3a2df8492b8db93a613ede5eacf3fa.svg",
+    "index.html": "/index.html",
+    "static/media/folder.svg": "/static/media/folder.16edb5e8f9be83a7a96bacafc46b8685.svg",
+    "static/media/github.svg": "/static/media/github.16a9304e38fd8167989291ab92544e14.svg",
+    "static/media/linkedin.svg": "/static/media/linkedin.03f1d164221e3a81954e6ec24a350288.svg",
+    "main.207cc7cf.css.map": "/static/css/main.207cc7cf.css.map",
+    "main.d792d88a.js.map": "/static/js/main.d792d88a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c5fccf97.css",
-    "static/js/main.af0ef317.js"
+    "static/css/main.207cc7cf.css",
+    "static/js/main.d792d88a.js"
   ]
 }
