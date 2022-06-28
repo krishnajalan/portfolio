@@ -18,7 +18,7 @@ const links_icons =
         icon : INSTAGRAM
     },
     {
-        link : 'https://drive.google.com/file/d/1ToE7cbqr8Sv9Lyhoon-ZTJbkL2ohOaWe/view?usp=sharing',
+        link : 'https://objectstorage.ap-mumbai-1.oraclecloud.com/n/bm7yfrw0djw1/b/bucket-20220628-0830/o/Krishna_Jalan_Resume.pdf',
         icon : RESUME
     },
 ]
