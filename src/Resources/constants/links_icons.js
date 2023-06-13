@@ -10,7 +10,7 @@ const links_icons =
         icon : GITHUB
     },
     {
-        link : 'https://www.linkedin.com/in/krishna-jalan/',
+        link : 'https://www.linkedin.com/in/krishnajalan/',
         icon : LINKEDIN
     },
     {
