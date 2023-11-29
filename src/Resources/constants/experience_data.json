@@ -1,5 +1,16 @@
 [
     {
+        "company": "Sandvine Technologies",
+        "title": "Software Engineer",
+        "duration": "Jan 2023 - Present",
+        "description": [
+            "Working as a Software Engineer in the Data Plane team.",
+            "Developed the solution/POC for the new feature in the product to classfy the Xbox/PS game download traffic and successfully classifying the top games with 95+% accuracy.",
+            "Worked on integrating tensorflow model with the product. while keeping the performance in mind. (Tensorflow C, Tensorflow Lite)",
+            "Worked on multiple customer commitments with hard deadlines and successfully delivered the solution on time."
+        ]
+    },
+    {
         "company" :"Data Peace.Pvt.Ltd (Upai.io)",
         "title" : "Software Engineer",
         "duration" : "Jume 2021 - August 2021",

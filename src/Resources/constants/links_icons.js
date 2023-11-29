@@ -18,7 +18,7 @@ const links_icons =
         icon : INSTAGRAM
     },
     {
-        link : 'https://objectstorage.ap-mumbai-1.oraclecloud.com/n/bm7yfrw0djw1/b/bucket-20220628-0830/o/Krishna_Jalan_Resume.pdf',
+        link : 'https://objectstorage.ap-mumbai-1.oraclecloud.com/n/bm7yfrw0djw1/b/bucket-20220628-0830/o/Krishnajalan_SDE_resume.pdf',
         icon : RESUME
     },
 ]
