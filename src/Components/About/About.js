@@ -10,11 +10,10 @@ const About = () =>{
                 <div  className="header">
                     <h1>About Me</h1>
                 </div>
-                <p>Hello! I'm Krishna, an aspiring Computer Science Engineer curious, imaginative, and a little nerdy.<br/>⠀</p>
-                <p>Currently I'm a third year student at <a className="school"href="https://jklu.edu.in/" target="_blank" rel="noreferrer">JK Lakshmipat University</a>. 
-                I'm always looking to learn new things.
-                I am a passionate young man who loves to create innovative solutions to difficult problems.
-                I'm always ready to help others learn new things.
+                <p>Hello! I'm Krishna, a Computer Science Engineer. with curious, imaginative, and a little nerdy attitude.<br/>⠀</p>
+                <p> 
+                I am a passionate young man who loves to create innovative solutions to non trivial problems.
+                I'm always up for learning new things.
                 I'm a dog lover and like Competitive Coding and Video Games (add me on <a className="school"href="https://steamcommunity.com/profiles/76561198376048763/" target="_blank" rel="noreferrer">Steam</a> or {" "}  
                     <a className="school"href="https://discordapp.com/users/299213605377802258/" target="_blank" rel="noreferrer">Discord</a> for gaming session.
                     ).    
