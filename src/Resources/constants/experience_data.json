@@ -1,12 +1,24 @@
 [
     {
-        "company": "Sandvine Technologies",
+        "company": "Arm",
         "title": "Software Engineer",
-        "duration": "Jan 2023 - Present",
+        "duration": "Jan 2025 - Present",
         "description": [
-            "Working as a Software Engineer in the Data Plane team.",
+            "Working as a Software Engineer in the Arm ATG group under Methodology team",
+            "Owning and driving the implementation of coverage report tooling and infrastructure",
+            "Optimized multiple processes for I/O performance and efficiency, reducing overall compute time from 4 hours to 20 minutes (an 90% improvement)",
+            "Collaborating with cross-functional teams to gather requirements and deliver impactful solutions"
+        ]
+    },
+    {
+        "company": "Sandvine Technologies",
+        "title": "Software Engineer 2",
+        "duration": "Jan 2023 - Jan 2025",
+        "description": [
+            "Worked as a Software Engineer in the Data Plane team.",
+            "Contributed to designing scalable infrastructure for pseudo-inline Deep Learning model integration with DPDK packet processing, boosting application classification accuracy by ~30%.",
+            "Integrated XNNPackdelegate into code flow, enhancing avg. inference time by 66%, reducing latency from 9μs to 3μs.",
             "Developed the solution/POC for the new feature in the product to classfy the Xbox/PS game download traffic and successfully classifying the top games with 95+% accuracy.",
-            "Worked on integrating tensorflow model with the product. while keeping the performance in mind. (Tensorflow C, Tensorflow Lite)",
             "Worked on multiple customer commitments with hard deadlines and successfully delivered the solution on time."
         ]
     },
