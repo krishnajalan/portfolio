@@ -14,7 +14,7 @@ const links_icons =
         icon : LINKEDIN
     },
     {
-        link : 'https://www.instagram.com/krishna_jalan_/',
+        link : 'https://www.instagram.com/k_jalan_/',
         icon : INSTAGRAM
     },
     {
